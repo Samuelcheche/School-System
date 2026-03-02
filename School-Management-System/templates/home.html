@@ -1,0 +1,172 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid" style="background:#F9FAFB; padding:25px; border-radius:12px;">
+
+	<!-- HERO SECTION -->
+	<div class="row">
+		<div class="col-12">
+			<div class="card border-0 shadow-lg mb-4 text-white"
+				 style="background: linear-gradient(135deg, #4F46E5, #6366F1); border-radius:16px;">
+				<div class="card-body p-4 p-md-5">
+					<h2 class="mb-2 font-weight-bold">
+						Welcome {{ display_name|title }}
+					</h2>
+					<p class="mb-0 opacity-75">
+						ST MARK BOYS SCHOOL MANAGEMENT SYSTEM — Manage students, teachers, employees and attendance seamlessly.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- STAT CARDS -->
+	<div class="row">
+		{% comment %} Students {% endcomment %}
+		<div class="col-sm-6 col-lg-3 mb-4">
+			<a href="{% url 'student_list' %}" class="text-decoration-none">
+				<div class="card border-0 shadow-sm h-100 dashboard-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<h6 class="text-muted mb-1">Students</h6>
+								<h4 class="mb-1 font-weight-bold">Student List</h4>
+								<p class="text-primary font-weight-bold mb-0">
+									{{ student_count }} Total
+								</p>
+							</div>
+							<div class="icon-circle bg-primary text-white">
+								<i class="icon-people"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		{% comment %} Teachers {% endcomment %}
+		<div class="col-sm-6 col-lg-3 mb-4">
+			<a href="{% url 'teacher_list' %}" class="text-decoration-none">
+				<div class="card border-0 shadow-sm h-100 dashboard-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<h6 class="text-muted mb-1">Teachers</h6>
+								<h4 class="mb-1 font-weight-bold">Teacher List</h4>
+								<p class="text-primary font-weight-bold mb-0">
+									{{ teacher_count }} Total
+								</p>
+							</div>
+							<div class="icon-circle bg-primary text-white">
+								<i class="icon-user"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		{% comment %} Employees {% endcomment %}
+		<div class="col-sm-6 col-lg-3 mb-4">
+			<a href="{% url 'employee_list' %}" class="text-decoration-none">
+				<div class="card border-0 shadow-sm h-100 dashboard-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<h6 class="text-muted mb-1">Employees</h6>
+								<h4 class="mb-1 font-weight-bold">Employee List</h4>
+								<p class="text-primary font-weight-bold mb-0">
+									{{ employee_count }} Total
+								</p>
+							</div>
+							<div class="icon-circle bg-primary text-white">
+								<i class="icon-briefcase"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		{% comment %} Attendance {% endcomment %}
+		<div class="col-sm-6 col-lg-3 mb-4">
+			<a href="{% url 'attendance_count' %}" class="text-decoration-none">
+				<div class="card border-0 shadow-sm h-100 dashboard-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<h6 class="text-muted mb-1">Attendance</h6>
+								<h4 class="mb-1 font-weight-bold">View Report</h4>
+								<p class="text-primary font-weight-bold mb-0">
+									{{ attendance_count }} Today
+								</p>
+							</div>
+							<div class="icon-circle bg-primary text-white">
+								<i class="icon-check"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<!-- LOWER SECTION -->
+	<div class="row">
+		<div class="col-lg-8 mb-4">
+			<div class="card border-0 shadow-sm h-100">
+				<div class="card-header bg-white border-0 font-weight-bold">
+					Quick Actions
+				</div>
+				<div class="card-body">
+					<a href="{% url 'student_regi' %}" class="btn btn-primary mr-2 mb-2 px-4 rounded-pill">Register Student</a>
+					<a href="{% url 'create_teacher' %}" class="btn btn-primary mr-2 mb-2 px-4 rounded-pill">Add Teacher</a>
+					<a href="{% url 'create_employee' %}" class="btn btn-primary mr-2 mb-2 px-4 rounded-pill">Add Employee</a>
+					<a href="{% url 'attendance_count' %}" class="btn btn-outline-primary mb-2 px-4 rounded-pill">Check Attendance</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 mb-4">
+			<div class="card border-0 shadow-sm h-100">
+				<div class="card-header bg-white border-0 font-weight-bold">
+					System Overview
+				</div>
+				<div class="card-body">
+					<p class="mb-2">
+						Use the sidebar to manage each section quickly.
+					</p>
+					<p class="mb-0 text-muted">
+						All tools follow a consistent workflow: list, create, edit and view details.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- Optional Modern Styling -->
+<style>
+.dashboard-card {
+	border-radius: 14px;
+	transition: all 0.3s ease;
+}
+.dashboard-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.icon-circle {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+}
+</style>
+
+{% endblock %}

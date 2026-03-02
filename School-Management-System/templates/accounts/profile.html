@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">My Profile</div>
+            <div class="card-body">
+                <h5 class="mb-3">{{ request.user.get_full_name|default:request.user.username }}</h5>
+                <p class="mb-2"><strong>Username:</strong> {{ request.user.username }}</p>
+                <p class="mb-2"><strong>Email:</strong> {{ request.user.email|default:'Not provided' }}</p>
+                <p class="mb-0 text-muted">Welcome to ST MARK BOYS MANAGEMENT SYSTEM profile dashboard.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-block mb-2">Dashboard</a>
+                <a href="{% url 'updates' %}" class="btn btn-outline-primary btn-block mb-2">Updates</a>
+                <a href="{% url 'payments' %}" class="btn btn-outline-primary btn-block">Payments</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

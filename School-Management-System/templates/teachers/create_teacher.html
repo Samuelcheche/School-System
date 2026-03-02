@@ -1,0 +1,111 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'partials/_alerts.html' %}
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Teacher Registration</h4>
+        <a href="{% url 'teacher_list' %}" class="btn btn-outline-primary btn-sm">View Teachers</a>
+    </div>
+    <div class="card-body">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.name.id_for_label }}">Full Name</label>
+                        {{ forms.name }}
+                        {% if forms.name.errors %}<small class="text-danger">{{ forms.name.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.email.id_for_label }}">Email Address</label>
+                        {{ forms.email }}
+                        {% if forms.email.errors %}<small class="text-danger">{{ forms.email.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.age.id_for_label }}">Age</label>
+                        {{ forms.age }}
+                        {% if forms.age.errors %}<small class="text-danger">{{ forms.age.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.gender.id_for_label }}">Gender</label>
+                        {{ forms.gender }}
+                        {% if forms.gender.errors %}<small class="text-danger">{{ forms.gender.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.salary.id_for_label }}">Salary</label>
+                        {{ forms.salary }}
+                        {% if forms.salary.errors %}<small class="text-danger">{{ forms.salary.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.dept_type.id_for_label }}">Department</label>
+                        {{ forms.dept_type }}
+                        {% if forms.dept_type.errors %}<small class="text-danger">{{ forms.dept_type.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.sub_type.id_for_label }}">Subject</label>
+                        {{ forms.sub_type }}
+                        {% if forms.sub_type.errors %}<small class="text-danger">{{ forms.sub_type.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.passing_year.id_for_label }}">Passing Year</label>
+                        {{ forms.passing_year }}
+                        {% if forms.passing_year.errors %}<small class="text-danger">{{ forms.passing_year.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.joining_date.id_for_label }}">Joining Date</label>
+                        {{ forms.joining_date }}
+                        {% if forms.joining_date.errors %}<small class="text-danger">{{ forms.joining_date.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label for="{{ forms.teacher_img.id_for_label }}">Teacher Photo</label>
+                        {{ forms.teacher_img }}
+                        {% if forms.teacher_img.errors %}<small class="text-danger">{{ forms.teacher_img.errors|striptags }}</small>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-2">
+                <button type="submit" class="btn btn-primary mr-2">Register Teacher</button>
+                <a href="{% url 'teacher_list' %}" class="btn btn-outline-primary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

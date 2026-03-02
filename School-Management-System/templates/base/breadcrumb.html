@@ -1,0 +1,18 @@
+{% load static %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'home' %}">Dashboard</a></li>
+
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Button group">
+            <a class="btn" href="{% url 'home' %}"><i class="icon-speech"></i></a>
+            <a class="btn" href="{% url 'home' %}"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+            <a class="btn" href="/admin/"><i class="icon-settings"></i> &nbsp;Admin</a>
+        </div>
+    </li>
+
+    {% block breadcrumb %}
+    {% endblock %}
+</ol>

@@ -1,0 +1,153 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'partials/_alerts.html' %}
+
+<div class="container-fluid mt-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold">Teachers Management</h4>
+    </div>
+
+    <!-- Card -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-white border-0 py-3">
+            <h5 class="mb-0 fw-semibold">
+                <i class="fa fa-users text-primary me-2"></i> Teachers List
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Subject</th>
+                            <th>Joining Date</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for teacher in teachers %}
+                        <tr>
+                            <td class="fw-semibold text-muted">{{ forloop.counter }}</td>
+
+                            <td class="fw-semibold">{{ teacher.name }}</td>
+
+                            <td class="text-muted">{{ teacher.email }}</td>
+
+                            <td>
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                                    {{ teacher.dept_type }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                                    {{ teacher.sub_type }}
+                                </span>
+                            </td>
+
+                            <td class="text-muted">
+                                {{ teacher.joining_date }}
+                            </td>
+
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+
+                                    <a href="{% url 'single_teacher' teacher.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-sm btn-outline-info">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a href="{% url 'delete_teacher' teacher.id %}" class="btn btn-sm btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                No teachers found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row mt-4">
+        <div class="col-md-12 d-flex justify-content-center">
+
+            {% if teachers.has_other_pages %}
+            <nav>
+                <ul class="pagination shadow-sm">
+
+                    {% if teachers.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{teachers.previous_page_number}}" class="page-link rounded-start">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link rounded-start">
+                                <i class="fa fa-angle-left"></i>
+                            </span>
+                        </li>
+                    {% endif %}
+
+                    {% for i in teachers.paginator.page_range %}
+                        {% if teachers.number == i %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ i }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if teachers.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{teachers.next_page_number}}" class="page-link rounded-end">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link rounded-end">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
