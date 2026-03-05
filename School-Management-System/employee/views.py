@@ -6,9 +6,11 @@ from .forms import OfficialInfoForm, PersonalInfoForm
 
 # Create your views here.
 def employee_list(request):
-    official_info = OfficialInfo.objects.all()
+    official_info = OfficialInfo.objects.order_by('id')
+    personal_info = PersonalInfo.objects.order_by('id')
+    employee_rows = zip(official_info, personal_info)
     context = {
-        "official_info": official_info
+        "employee_rows": employee_rows
     }
     return render(request, "employee/employee_list.html", context)
 
