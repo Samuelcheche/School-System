@@ -3,6 +3,7 @@ from .models import *
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 from django.utils import timezone
+from django.db.models import Q
 from .forms import CreateStudent, CreateStudentRegistration
 
 # Create your views here.
@@ -73,6 +74,12 @@ def attendance_count(request):
     student_list = []
     today = timezone.localdate()
 
+    def get_students_by_class(query_value):
+        return StudentInfo.objects.filter(
+            Q(class_type__class_short_form__iexact=query_value) |
+            Q(class_type__class_name__iexact=query_value)
+        )
+
     if request.method == "POST":
         class_name = request.POST.get("class_name", "").strip()
         present_student_ids = set(request.POST.getlist("present_students"))
@@ -80,9 +87,9 @@ def attendance_count(request):
         if not class_name:
             messages.error(request, "Please provide a class name.")
         else:
-            student_qs = StudentInfo.objects.filter(class_type__class_short_form__iexact=class_name)
+            student_qs = get_students_by_class(class_name)
             if not student_qs.exists():
-                messages.error(request, "No students found for this class.")
+                messages.error(request, "No students found for this class. Use class short form (e.g. FORM1) or full class name.")
             else:
                 for student in student_qs:
                     status_value = 1 if str(student.id) in present_student_ids else 0
@@ -97,7 +104,7 @@ def attendance_count(request):
     elif request.method == "GET":
         class_name = request.GET.get("class_name", "").strip()
         if class_name:
-            student_list = list(StudentInfo.objects.filter(class_type__class_short_form__iexact=class_name))
+            student_list = list(get_students_by_class(class_name))
 
     if student_list:
         attendance_map = {
