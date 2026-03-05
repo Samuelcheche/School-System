@@ -1,13 +1,24 @@
 from django import forms
+from .models import OfficialInfo, PersonalInfo
 
-class OfficialInfoForm(forms.Form):
-    official_register_number = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'LM10'}))
-    official_register_date = forms.CharField(widget=forms.DateInput(attrs={'placeholder': '22-07-1990'}))
+class OfficialInfoForm(forms.ModelForm):
+    class Meta:
+        model = OfficialInfo
+        fields = ("official_register_number", "official_register_date")
+        widgets = {
+            'official_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'LM10'}),
+            'official_register_date': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'YYYY-MM-DD'}),
+        }
 
 
-class PersonalInfo(forms.Form):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'John Doe'}))
-    dob = forms.CharField(widget=forms.DateInput(attrs={'placeholder': '22-07-1990'}))
-    another_fullname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'John Doe'}))
-    national_id = forms.CharField(widget=forms.NumberInput(attrs={'placeholder': ''}))
-    employee_avatar = forms.CharField(widget=forms.FileInput(attrs={'placeholder': ''}))
+class PersonalInfoForm(forms.ModelForm):
+    class Meta:
+        model = PersonalInfo
+        fields = ("full_name", "dob", "another_fullname", "national_id", "employee_avatar")
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'John Doe'}),
+            'dob': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'YYYY-MM-DD'}),
+            'another_fullname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'John Doe'}),
+            'national_id': forms.NumberInput(attrs={'class': 'form-control'}),
+            'employee_avatar': forms.FileInput(attrs={'class': 'form-control'}),
+        }

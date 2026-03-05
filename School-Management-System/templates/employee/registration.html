@@ -11,20 +11,28 @@
     </div>
     <div class="card-body">
         <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if official_form.errors or personal_form.errors %}
+                <div class="alert alert-danger">
+                    <strong>Please fix the following errors:</strong>
+                    {{ official_form.errors }}
+                    {{ personal_form.errors }}
+                </div>
+            {% endif %}
 
             <div class="card">
                 <div class="card-header">Official Details</div>
                 <hr>
                 <div class="card-body">
-                    {% csrf_token %}
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="reg_input_name" class="req">Register Number</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text" maxlength="45">
+                            {{ official_form.official_register_number }}
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="reg_input_name" class="req">Register Date</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text">
+                            {{ official_form.official_register_date }}
                         </div>
                     </div>
                 </div>
@@ -34,27 +42,26 @@
                 <div class="card-header">Personal Details</div>
                 <hr>
                 <div class="card-body">
-                    {% csrf_token %}
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <label for="reg_input_name" class="req">Full Name</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text" maxlength="45">
+                            {{ personal_form.full_name }}
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="reg_input_name" class="req">Date of Birth</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text">
+                            {{ personal_form.dob }}
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="reg_input_name" class="req">Another Name</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text">
+                            {{ personal_form.another_fullname }}
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="reg_input_name" class="req">NID</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text">
+                            {{ personal_form.national_id }}
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="reg_input_name" class="req">Photo</label>
-                            <input class="form-control" name="Student[student_admissionno]" type="text">
+                            {{ personal_form.employee_avatar }}
                         </div>
                     </div>
                 </div>
